@@ -1,0 +1,56 @@
+public class oys2 {
+
+	/**
+	 * @param args
+	 */
+	
+	
+	static void swap(int a , int b){
+		int temp =a;
+		a=b;
+		b=temp;
+	}
+	static int xianxingselect (int a[], int low, int high , int k){
+		if(low==high){
+			return a[low];
+		}
+			int i=suiji(a , low , high);
+			int j=i-low+1;
+			if(k<=j)
+				return xianxingselect(a , low, i, k);
+			else
+				return xianxingselect(a,i+1,high,k-j);
+		}
+	
+	static int suiji(int a[],int low,int high){
+		int i=low + (int) (Math.random() * (high - low));;
+		swap(a[i],a[low]);   
+		  return Partition(a,low,high);   
+		
+	}
+	static int Partition(int a[],int low,int high)   
+	{    
+	  int i=low,j=high+1;   
+	  int x=a[low];  
+	  while(true)  
+	  {  
+	    while(a[++i]<x&&i<high);  
+	    while(a[--j]>x);  
+	    if(i>=j) break;  
+	    swap(a[i],a[j]);   
+	  }   
+	  a[low]=a[j];  
+	  a[j]=x;   
+	  return j;   
+	}   
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		  int a[]={4,7,9,5,8,3,0,1};   
+		  int k=2;   
+		  int y=xianxingselect(a,0,7,k);   
+		  System.out.print(y);
+		     
+	}
+
+}
