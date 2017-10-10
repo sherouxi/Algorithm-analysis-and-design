@@ -1,0 +1,95 @@
+1. 统计数字问题：一本书的页码从自然数1开始计数，直到自然数n。书的页码按照通常的习惯编排，每个页码都不包含多余的前导数字0。
+例如，第6页用数字6表示，而不是06或006等。数字计数问题要求对给定书的总页码n，计算出书的全部页码中分别用到多少次数字0，1，2，...，9。
+设置数组存储---循环内（低一位求余累加----除10后继续低一位求余累加）------设置循环输出各个位数出现次数
+public class sssss {
+
+	/**
+	 * @param args
+	 */
+	
+	static void jisuan (int n)
+	{
+		int[] a = new int[10]; //数组用来存储0到9使用次数
+		for(int i = 0;i<n;i++)//遍历
+		{
+			int t=i;
+			while(t!=0)//i一开始为0
+			{
+				a[t%10]++;//求余累加
+				t/=10;//低位继续求余累加
+			}
+		}
+		for(int i=0;i<10;i++)
+		{
+			System.out.println(a[i]);//依次输出
+		}
+		}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub	
+		long startTime=System.currentTimeMillis();
+		jisuan(11000000);
+		long endTime=System.currentTimeMillis();
+	    float excTime=(float)(endTime-startTime)/1000;
+	    System.out.println("执行时间："+excTime+"s");		
+        return;
+        
+        
+方法2：
+设置数组存储---判断位数-------n × 10^(n-1)--高位向低位进行统计-----减去多余的0--设置循环输出各个位数出现次数
+
+
+public class ssss {
+
+	/**
+	 * @param args
+	 */
+	
+	
+	public static int jisuan1(int n) {  
+        return (int) (n * Math.pow(10,n-1));  
+    }  
+	
+	static void jisuan2(int n)
+	{
+		int[] a = new int[10];
+		int length=String.valueOf(n).length();
+		for(int i=length;i>0;i--)
+		{
+			int x=(int) Math.pow(10,length);
+			int y=(int) Math.pow(10,length-1) ;
+			int z= (n % x)/y;
+			int j;
+			for(j=0;j<z;j++)
+			{
+				a[j]+=y;
+				for(int k=0;k<=9;k++){
+					a[k]+=jisuan1(i-1);
+				}
+			}
+			a[j]+=n%y+1;
+			a[0]-=y;
+			
+			}
+		
+		for(int i=0;i<10;i++)
+		{
+			System.out.println(a[i]);//依次输出
+		}
+		}
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub	
+		long startTime=System.currentTimeMillis();
+		jisuan2(11);
+		long endTime=System.currentTimeMillis();
+	    float excTime=(float)(endTime-startTime)/1000;
+	    System.out.println("执行时间："+excTime+"s");		
+        return;
+	}
+
+}        
